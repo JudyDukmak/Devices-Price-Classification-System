@@ -128,7 +128,7 @@ print(classification_report(y_val, y_pred))
 
 # prediction for 10 devices from the Test dataset 
 # Select the first 10 rows from the test dataset (excluding the 'id' column)
-X_test_sample = test_data.drop(columns=['id']).head(10)
+X_test_sample = test_data.drop(columns=['id']).head(10).to_numpy()
 
 # Perform predictions
 predictions = model.predict(X_test_sample)
