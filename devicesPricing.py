@@ -125,3 +125,20 @@ plt.show()
 
 # Classification Report
 print(classification_report(y_val, y_pred))
+
+# prediction for 10 devices from the Test dataset 
+# Select the first 10 rows from the test dataset (excluding the 'id' column)
+X_test_sample = test_data.drop(columns=['id']).head(10)
+
+# Perform predictions
+predictions = model.predict(X_test_sample)
+
+# Combine the device IDs with their corresponding predictions
+result = pd.DataFrame({
+    'Device ID': test_data['id'].head(10),
+    'Predicted Price Range': predictions
+})
+
+# Display the results
+print("prediction for 10 devices from the Test dataset: ")
+print(result)
