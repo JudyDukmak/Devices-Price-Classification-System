@@ -1,6 +1,9 @@
 import pandas as pd 
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 # Load the train dataset
 train_data = pd.read_csv('train - train.csv')
@@ -56,32 +59,44 @@ print(train_data.info())
 # Display summary statistics
 print(train_data.describe())
 
+#Correlation Matrix
 corr_matrix = train_data.corr()
 plt.figure(figsize=(14, 10))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm')
 plt.title('Correlation Matrix')
 plt.show()
 
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import confusion_matrix, classification_report
+#Distribution of Target Variable
+sns.countplot(x='price_range', data=train_data)
+plt.title('Distribution of Price Range')
+plt.show()
+
+#Scatter Plot
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='ram', y='battery_power', hue='price_range', data=train_data)
+plt.title('RAM vs Battery Power by Price Range')
+plt.show()
+
+# Feature Scaling
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+
+# Apply scaling to the numerical features 
+train_data[[ 'ram', 'battery_performance']] = scaler.fit_transform(train_data[[ 'ram', 'battery_performance']])
+test_data[[ 'ram', 'battery_performance']] = scaler.transform(test_data[[ 'ram', 'battery_performance']])
+
 
 # Split the data into features and target variable
-X = train_df.drop('price_range', axis=1)
-y = train_df['price_range']
+X = train_data.drop('price_range', axis=1)
+y = train_data['price_range']
 
 # Split the data into training and validation sets
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Initialize the classifier
-rf_clf = RandomForestClassifier(n_estimators=100, random_state=42)
+# Initialize the classifier, Chose the Random Forest classifier for
+#  its ability to handle both numerical and categorical data, and its robustness to overfitting
+model = RandomForestClassifier(n_estimators=100, random_state=42)
 
 # Train the model
-rf_clf.fit(X_train, y_train)
+model.fit(X_train, y_train)
 
-# Predict on the validation set
-y_pred = rf_clf.predict(X_val)
-
-# Evaluate the model
-print(confusion_matrix(y_val, y_pred))
-print(classification_report(y_val, y_pred))
