@@ -1,0 +1,77 @@
+Documentation for Device Price Classification System
+Introduction
+This document provides a detailed overview of the steps taken to develop a 
+Device Price Classification System using machine learning.
+The goal is to classify mobile devices into different price ranges based on their features.
+
+Steps Taken
+1. Data Preparation
+Load Data:
+
+The data was loaded into a DataFrame for ease of manipulation and analysis.
+Data included features such as battery_power, blue, clock_speed, and price_range.
+Inspect Data:
+
+The initial data was inspected for missing values and feature distribution.
+Data types and summary statistics were reviewed to understand the dataset.
+Feature Engineering:
+
+New features were created to improve model performance:
+screen_resolution: Computed as the product of px_height and px_width.
+aspect_ratio: Computed as the ratio of px_height to px_width.
+battery_performance: Computed as the ratio of battery_power to battery_power.
+
+2. Handling Missing Values
+Identify Missing Values:
+
+Missing values were identified in the dataset using the isnull().sum() function.
+Impute Missing Values:
+
+Imputation strategies were applied:
+For numerical features, missing values were filled with the median of the respective column.
+For categorical features, missing values were filled with the mode or a placeholder.
+3. Data Splitting
+Feature and Target Variable Separation:
+
+Features (X) and target variable (y) were separated:
+
+Train-Test Split:
+
+The dataset was split into training and validation sets using an 80-20 split:
+
+4. Model Training
+Initialize Model:
+
+A Random Forest Classifier was chosen for the classification task:
+
+Train Model:
+
+The model was trained using the training set:
+
+5. Model Evaluation
+Make Predictions:
+
+Predictions were made on the validation set:
+
+
+Model performance was evaluated using accuracy and classification metrics
+
+6. feature Names Warning
+Issue: During prediction, warnings related to feature names were encountered.
+Solution: Ensure that the features used for prediction have the same names and order as those used during training. Convert to a NumPy array if necessary:
+
+
+7. Testing and Deployment
+Predict for Test Data:
+
+Predictions were made for test data, ensuring feature consistency with the training data:
+
+Format Output:
+
+The results were formatted to include device IDs and predicted price ranges
+
+Conclusion
+This document outlines the steps taken to develop and evaluate a Device Price
+Classification System. The process involved data preparation, feature engineering, handling missing values,
+training a Random Forest model, and evaluating its performance. Additionally, steps were taken to address issues
+related to feature names during predictions.
