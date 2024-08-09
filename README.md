@@ -21,5 +21,5 @@ The model is built using a Random Forest Classifier, and it performs classificat
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/JudyDukmak/device-price-classification-system.git
-   cd device-price-classification-system
+   git clone https://github.com/JudyDukmak/devices-price-classification-system.git
+   cd devices-price-classification-system
